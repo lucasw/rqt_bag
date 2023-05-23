@@ -153,7 +153,7 @@ class TimelineFrame(QGraphicsItem):
             'tf/tfMessage': QColor(0, 153, 0, 204),
         }
         # minimum number of pixels allowed between two bag messages before they are combined
-        self._default_msg_combine_px = 1.0
+        self._default_msg_combine_px = 1
         self._active_message_line_width = 3
 
         # Selected Region Rendering
@@ -467,7 +467,7 @@ class TimelineFrame(QGraphicsItem):
             if playhead_index >= 0:
                 playhead_stamp = all_stamps[playhead_index]
                 if playhead_stamp > self._stamp_left and playhead_stamp < self._stamp_right:
-                    playhead_x = int(self._history_left + \
+                    playhead_x = int(self._history_left +
                         (all_stamps[playhead_index] - self._stamp_left) * width_interval)
                     painter.drawLine(playhead_x, msg_y, playhead_x, msg_y + msg_height)
             curpen.setWidth(oldwidth)
@@ -481,9 +481,9 @@ class TimelineFrame(QGraphicsItem):
                 if stamp_end < self._stamp_left:
                     continue
 
-                region_x_start = self._history_left + \
-                    (stamp_start - self._stamp_left) * width_interval
-                region_x_end = self._history_left + (stamp_end - self._stamp_left) * width_interval
+                region_x_start = int(self._history_left +
+                    (stamp_start - self._stamp_left) * width_interval)
+                region_x_end = int(self._history_left + (stamp_end - self._stamp_left) * width_interval)
                 region_width = max(1, region_x_end - region_x_start)
                 renderer.draw_timeline_segment(
                     painter, topic, stamp_start, stamp_end,
